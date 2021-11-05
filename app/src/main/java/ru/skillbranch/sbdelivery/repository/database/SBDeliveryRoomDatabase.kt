@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ru.skillbranch.sbdelivery.repository.database.dao.CategoriesDao
 import ru.skillbranch.sbdelivery.repository.database.dao.DishesDao
+import ru.skillbranch.sbdelivery.repository.database.entity.CategoryPersistEntity
 import ru.skillbranch.sbdelivery.repository.database.entity.DishPersistEntity
 
-@Database(entities = [DishPersistEntity::class], version = 1, exportSchema = false)
+@Database(entities = [DishPersistEntity::class, CategoryPersistEntity::class], version = 1,
+exportSchema = false)
 abstract class SBDeliveryRoomDatabase : RoomDatabase() {
     abstract fun dishesDao(): DishesDao
+    abstract fun categoriesDao(): CategoriesDao
 }
 
 object DatabaseProvider {

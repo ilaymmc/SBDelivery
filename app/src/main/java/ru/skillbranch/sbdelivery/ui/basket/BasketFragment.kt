@@ -32,7 +32,6 @@ class BasketFragment : Fragment() {
                 if (it is BasketEvent.AddDish) {
                     binding.tvDishes.text = "${binding.tvDishes.text}\n\n ${it.title} стоимость ${it.price}"
                 }
-
             }
     }
 }

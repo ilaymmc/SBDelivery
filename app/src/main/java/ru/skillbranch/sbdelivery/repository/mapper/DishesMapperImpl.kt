@@ -2,7 +2,9 @@ package ru.skillbranch.sbdelivery.repository.mapper
 
 import ru.skillbranch.sbdelivery.core.adapter.ProductItemState
 import ru.skillbranch.sbdelivery.domain.entity.DishEntity
+import ru.skillbranch.sbdelivery.repository.database.entity.CategoryPersistEntity
 import ru.skillbranch.sbdelivery.repository.database.entity.DishPersistEntity
+import ru.skillbranch.sbdelivery.repository.models.Category
 import ru.skillbranch.sbdelivery.repository.models.Dish
 
 open class DishesMapperImpl : DishesMapper {
@@ -41,4 +43,14 @@ open class DishesMapperImpl : DishesMapper {
 
     override fun mapPersistToEntity(dishesPersist: List<DishPersistEntity>): List<DishEntity> =
         dishesPersist.map { DishEntity(it.id, it.category, it.image, "${it.price} ₽", it.name) }
+
+    override fun mapCategoryPersistToEntity(categoriesPersist: List<CategoryPersistEntity>):
+    List<Category> =
+        categoriesPersist.map { Category(categoryId = it.id, name = it.name) }
+
+    override fun mapDtoToCategoryPersist(categoriesDto: List<Category>):
+        List<CategoryPersistEntity> =
+            categoriesDto.map { CategoryPersistEntity(id = it.categoryId, name = it.name) }
+
+
 }

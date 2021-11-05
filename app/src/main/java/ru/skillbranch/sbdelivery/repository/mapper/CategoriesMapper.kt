@@ -5,7 +5,12 @@ import ru.skillbranch.sbdelivery.repository.models.Category
 
 class CategoriesMapper {
 
-    fun mapDtoToState(dto: List<Category>): List<CategoryItemState> =
-        dto.map { CategoryItemState(it.categoryId, it.name) }
+    fun mapDtoToState(dto: List<Category>, selectedCategoryId: String? = null):
+        List<CategoryItemState> =
+        dto.map { CategoryItemState(
+            categoryId = it.categoryId,
+            title = it.name,
+            selected = selectedCategoryId == it.categoryId
+        ) }
 
 }

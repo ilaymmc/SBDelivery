@@ -7,6 +7,8 @@ import ru.skillbranch.sbdelivery.core.notifier.BasketNotifier
 import ru.skillbranch.sbdelivery.core.notifier.BasketNotifierImpl
 import ru.skillbranch.sbdelivery.domain.SearchUseCase
 import ru.skillbranch.sbdelivery.domain.SearchUseCaseImpl
+import ru.skillbranch.sbdelivery.domain.filter.CategoriesFilter
+import ru.skillbranch.sbdelivery.domain.filter.CategoriesFilterUseCase
 import ru.skillbranch.sbdelivery.repository.DishesRepository
 import ru.skillbranch.sbdelivery.repository.DishesRepositoryContract
 import ru.skillbranch.sbdelivery.repository.database.DatabaseProvider
@@ -21,9 +23,11 @@ import ru.skillbranch.sbdelivery.ui.search.SearchViewModel
 object AppModule {
     fun appModule() = module {
         single { DeliveryRetrofitProvider.createRetrofit() }
-        single<DishesRepositoryContract> { DishesRepository(api = get(), mapper = get(), dishesDao = get()) }
+        single<DishesRepositoryContract> { DishesRepository(api = get(), mapper = get(),
+            dishesDao = get(), categoriesDao = get()) }
         single { ResourceManager(context = get()) }
         single<SearchUseCase> { SearchUseCaseImpl(get()) }
+        single<CategoriesFilter> { CategoriesFilterUseCase(get()) }
         single<DishesMapper> { DishesMapperImpl() }
         single<BasketNotifier> { BasketNotifierImpl() }
         single { CategoriesMapper() }
@@ -32,10 +36,12 @@ object AppModule {
     fun databaseModule() = module {
         single { DatabaseProvider.newInstance(context = get()) }
         single { get<SBDeliveryRoomDatabase>().dishesDao() }
+        single { get<SBDeliveryRoomDatabase>().categoriesDao() }
     }
 
     fun viewModelModule() = module {
-        viewModel { MainViewModel(repository = get(), dishesMapper = get(), categoriesMapper = get(), notifier = get()) }
+        viewModel { MainViewModel(repository = get(), dishesMapper = get(), categoriesMapper =
+        get(), notifier = get(), filtersUseCase = get()) }
         viewModel { SearchViewModel(useCase = get(), mapper = get()) }
     }
 }

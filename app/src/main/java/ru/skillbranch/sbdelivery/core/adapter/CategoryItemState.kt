@@ -2,5 +2,6 @@ package ru.skillbranch.sbdelivery.core.adapter
 
 data class CategoryItemState(
     val categoryId: String,
-    val title: String
+    val title: String,
+    val selected: Boolean = false
 )

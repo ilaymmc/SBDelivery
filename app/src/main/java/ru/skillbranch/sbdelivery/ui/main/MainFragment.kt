@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
 
     private val categoriesAdapter by lazy {
         CategoriesDelegate().createAdapter {
-            // TODO handle click
+            viewModel.handleChooseCategory(it.categoryId)
         }
     }
 
@@ -73,6 +73,7 @@ class MainFragment : Fragment() {
         if (state is MainState.Result) {
             btnBasket.isVisible = true
             categoriesAdapter.items = state.categories
+            categoriesAdapter.notifyDataSetChanged()
             productAdapter.items = state.productItems
             productAdapter.notifyDataSetChanged()
         } else if (state is MainState.Error) {

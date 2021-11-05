@@ -17,6 +17,7 @@ class CategoriesDelegate {
             itemView.setOnClickListener { itemClick.invoke(item) }
             bind {
                 binding.tvTitle.text = item.title
+                binding.tvTitle.isSelected = item.selected
             }
         }
 }
