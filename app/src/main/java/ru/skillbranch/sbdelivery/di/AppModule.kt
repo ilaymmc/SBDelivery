@@ -24,7 +24,7 @@ object AppModule {
     fun appModule() = module {
         single { DeliveryRetrofitProvider.createRetrofit() }
         single<DishesRepositoryContract> { DishesRepository(api = get(), mapper = get(),
-            dishesDao = get(), categoriesDao = get()) }
+            dishesDao = get()) }
         single { ResourceManager(context = get()) }
         single<SearchUseCase> { SearchUseCaseImpl(get()) }
         single<CategoriesFilter> { CategoriesFilterUseCase(get()) }
@@ -36,7 +36,6 @@ object AppModule {
     fun databaseModule() = module {
         single { DatabaseProvider.newInstance(context = get()) }
         single { get<SBDeliveryRoomDatabase>().dishesDao() }
-        single { get<SBDeliveryRoomDatabase>().categoriesDao() }
     }
 
     fun viewModelModule() = module {

@@ -9,6 +9,6 @@ interface DishesRepositoryContract {
     fun getDishes(): Single<List<DishEntity>>
     fun getCachedDishes(): Single<List<DishEntity>>
     fun getCategories(): Single<List<Category>>
-    fun getCashedCategories(): Single<List<Category>>
+    fun getCashedCategories(): Observable<List<Category>>
     fun findDishesByName(searchText: String): Observable<List<DishEntity>>
 }

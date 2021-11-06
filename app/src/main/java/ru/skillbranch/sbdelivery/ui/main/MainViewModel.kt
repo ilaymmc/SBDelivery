@@ -64,7 +64,7 @@ class MainViewModel(
 
     fun handleChooseCategory(categoryId: String) {
         filtersUseCase.categoryFilterDishes(categoryId)
-            .flatMap { dishes -> repository.getCashedCategories().map { it to dishes }}
-            .loadDishesWithCategories(categoryId)
+            .flatMap { dishes -> repository.getCashedCategories().lastOrError().map { it to dishes }}
+            .loadDishesWithCategories()
     }
 }
